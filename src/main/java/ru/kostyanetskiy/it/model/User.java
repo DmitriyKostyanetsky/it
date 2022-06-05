@@ -5,13 +5,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
-    private String name;
+    private String username;
+    private String password;
     private String email;
     private String title;
     private String phone;
@@ -19,18 +20,26 @@ public class User implements Serializable {
     private String imageUrl;
     @Column(name = "user_code", updatable = false)
     private String userCode;
+    private boolean verified;
+    private boolean locked;
+    @Column(name = "ACC_CRED_EXPIRED")
+    private boolean accountCredentialsExpired;
 
     public User() {
     }
 
-    public User(Long id, String name, String email, String title, String phone, String imageUrl, String userCode) {
+    public User(Long id, String username, String password, String email, String title, String phone, String imageUrl, String userCode, boolean verified, boolean locked, boolean accountCredentialsExpired) {
         this.id = id;
-        this.name = name;
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.title = title;
         this.phone = phone;
         this.imageUrl = imageUrl;
         this.userCode = userCode;
+        this.verified = verified;
+        this.locked = locked;
+        this.accountCredentialsExpired = accountCredentialsExpired;
     }
 
     public Long getId() {
@@ -41,12 +50,20 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -89,13 +106,41 @@ public class User implements Serializable {
         this.userCode = userCode;
     }
 
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean isAccountCredentialsExpired() {
+        return accountCredentialsExpired;
+    }
+
+    public void setAccountCredentialsExpired(boolean accountCredentialsExpired) {
+        this.accountCredentialsExpired = accountCredentialsExpired;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(name, user.name) &&
+        return verified == user.verified &&
+                locked == user.locked &&
+                accountCredentialsExpired == user.accountCredentialsExpired &&
+                Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(title, user.title) &&
                 Objects.equals(phone, user.phone) &&
@@ -105,19 +150,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, title, phone, imageUrl, userCode);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", title='" + title + '\'' +
-                ", phone='" + phone + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", userCode='" + userCode + '\'' +
-                '}';
+        return Objects.hash(id, username, password, email, title, phone, imageUrl, userCode, verified, locked, accountCredentialsExpired);
     }
 }
+
