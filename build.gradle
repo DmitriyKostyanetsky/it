@@ -5,8 +5,9 @@ plugins {
 }
 
 group = 'ru.kostyanetskiy'
-version = '0.0.1-SNAPSHOT'
+version = '1'
 sourceCompatibility = '11'
+archivesBaseName = 'itRx'
 
 repositories {
     mavenCentral()

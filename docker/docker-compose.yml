@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  app:
+    image: 'it:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+        - SPRING_DATASOURCE_URL=jdbc:h2:mem:mydb
+        - SPRING_DATASOURCE_USERNAME=admin
+        - SPRING_DATASOURCE_PASSWORD=admin
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 9191:9191
+    volumes:
+    - /home/dmitriy/dockerFolder:/dmitriy
+
+  db:
+    image: 'oscarfonts/h2:latest'
+    container_name: db
+    environment:
+      - H2_OPTIONS=-ifNotExists
+    volumes:
+      - /home/dmitriy/dockerFolder:/opt/h2-data
+    ports:
+      - 1521:1521
+      - 81:81

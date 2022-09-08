@@ -15,7 +15,7 @@ public class ItBuilderApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ItBuilderApplication.class, args);
-        testLog();
+//        testLog();
     }
 
     private static void testLog() {
