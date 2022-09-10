@@ -1,0 +1,20 @@
+apiVersion: autoscailing/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: it-k8s-autoscale
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta2v1
+    kind: Deployment
+    name: it-k8s-deploy
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: 80

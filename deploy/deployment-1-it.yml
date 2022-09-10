@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: it-k8s-deploy
+  labels:
+    app  : my-k8s-app
+    env  : prod
+    owner: DmitriyKostyanetskiy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: kbn
+  template:
+    metadata:
+      labels:
+        project: kbn
+    spec:
+      containers:
+        - name : kbn-java
+          image: dmitriykostyanetskiy94/k8sjava:latest
+          ports:
+            - containerPort: 9191
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: it-k8s-service
+  labels:
+    env  : prod
+    owner: DmitriyKostyanetskiy
+spec:
+  selector:
+    project: kbn
+  ports:
+    - name      : app-listener
+      protocol  : TCP
+      port      : 9191
+      targetPort: 9191
+  type: NodePort
