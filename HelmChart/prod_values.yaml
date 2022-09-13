@@ -1,0 +1,5 @@
+container:
+  image: dmitriykostyanetskiy94/k8sjava:latest
+
+replicaCount: 4
+port: 9191

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-k8s-deploy
+  labels:
+    app  : {{ .Release.Name }}-k8s-app
+    env  : prod
+    owner: DmitriyKostyanetskiy
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      project: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        project: {{ .Release.Name }}
+    spec:
+      containers:
+        - name : {{ .Release.Name }}-java
+          image: {{ .Values.container.image }}
+          ports:
+            - containerPort: {{ .Values.port }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-k8s-service
+  labels:
+    env  : prod
+    owner: DmitriyKostyanetskiy
+spec:
+  selector:
+    project: {{ .Release.Name }}
+  ports:
+    - name      : {{ .Release.Name }}-listener
+      protocol  : TCP
+      port      : {{ .Values.port }}
+      targetPort: {{ .Values.port }}
+  type: NodePort

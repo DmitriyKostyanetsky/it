@@ -16,8 +16,8 @@ pipeline {
 
         stage('Deploy to k8s') {
             steps {
-                script{
-                    sh 'kubectl apply -f deploy/deployment-1-it.yml'
+                script {
+                    sh 'helm upgrade java-app HelmChart/'
                 }
             }
         }

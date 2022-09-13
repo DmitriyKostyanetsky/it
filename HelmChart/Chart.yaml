@@ -1,0 +1,15 @@
+apiVersion: v2
+name: Spring-boot java charm
+version: "3.7.0"
+kubeVersion: "1.24.3"
+description: REST API Spring boot java app
+keywords:
+  - java11
+home: https://github.com/DmitriyKostyanetsky/itTechRXweb
+sources:
+  - https://github.com/DmitriyKostyanetsky/it
+maintainers:
+  - name: Dmitriy Kostyanetskiy
+    email: onlywarinfarfuture@gmail.com
+    url: https://github.com/DmitriyKostyanetsky
+appVersion: "1.0.0"
